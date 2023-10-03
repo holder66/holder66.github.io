@@ -301,14 +301,13 @@ This version is specific to the UKDA data dictionary format.</p>
 			<div class="title"><h2>fn display_file <a href="#display_file">#</a></h2></div><pre class="signature"><code><span class="token keyword">fn</span> <span class="token function">display_file</span><span class="token punctuation">(</span>path <span class="token builtin">string</span><span class="token punctuation">,</span> opts Options<span class="token punctuation">)</span></code></pre>
 <p>display_file displays on the console, a results file as produced by other
 hamnn functions.</p>
+<pre><code class="language-sh">display_file('path_to_saved_results_file', expanded_flag: true)
+Output options:
+expanded_flag: display additional information on the console, including
+    a confusion matrix for cross-validation or verification operations;
+graph_flag: generates plots for display in the default web browser.
+</code></pre>
 
-<section class="doc-node examples"><h4>Example</h4>
-<pre><code class="language-v"><span class="token function">display_file</span><span class="token punctuation">(</span><span class="token string">'path_to_saved_results_file'</span><span class="token punctuation">,</span> expanded_flag<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
-Output options<span class="token punctuation">:</span>
-expanded_flag<span class="token punctuation">:</span> display additional information on the console<span class="token punctuation">,</span> including
-	a confusion matrix <span class="token keyword">for</span> cross<span class="token operator">-</span>validation <span class="token keyword">or</span> verification operations<span class="token punctuation">;</span>
-graph_flag<span class="token punctuation">:</span> generates plots <span class="token keyword">for</span> display <span class="token keyword">in</span> the default web browser<span class="token punctuation">.</span></code></pre>
-</section>
 </section>
 		<section id="explore" class="doc-node">
 			<div class="title"><h2>fn explore <a href="#explore">#</a></h2></div><pre class="signature"><code><span class="token keyword">fn</span> <span class="token function">explore</span><span class="token punctuation">(</span>ds Dataset<span class="token punctuation">,</span> opts Options<span class="token punctuation">)</span> ExploreResult</code></pre>
@@ -876,7 +875,7 @@ default values to be passed to functions.</p>
 
 </section>
 
-						<div class="footer">Powered by vdoc. Generated on: 3 Oct 2023 14:33:58</div>
+						<div class="footer">Powered by vdoc. Generated on: 3 Oct 2023 14:36:22</div>
 					</div>
 					<div class="doc-toc"><ul><li class="open"><a href="#readme_vhammll">README</a></li>
 <li class="open"><a href="#Constants">Constants</a></li>
