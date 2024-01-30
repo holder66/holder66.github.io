@@ -101,102 +101,28 @@ v .         # recompile
 
 </section>
 
-		<section id="verify" class="doc-node">
-			<div class="title"><h2>fn verify <a href="#verify">#</a></h2></div>
+		<section id="close" class="doc-node">
+			<div class="title"><h2>fn close <a href="#close">#</a></h2></div>
 <pre class="signature">
-<code><span class="token keyword">fn</span> <span class="token function">verify</span><span class="token punctuation">(</span>opts Options<span class="token punctuation">,</span> disp DisplaySettings<span class="token punctuation">)</span> CrossVerifyResult</code></pre>
-<p>verify classifies all the instances in a verification datafile (specified by <code>opts.testfile_path</code>) using a trained Classifier; returns metrics comparing the inferred classes to the labeled (assigned) classes of the verification datafile.</p><pre><code class="language-sh">Optional (also see `make_classifier.v` for options in training a classifier) weighting_flag: nearest neighbor counts are weighted by class prevalences. Output options: show_flag: display results on the console; expanded_flag: display additional information on the console, including a confusion matrix. outputfile_path: saves the result as a json file
+<code><span class="token keyword">fn</span> close<span class="token punctuation">[</span><span class="token builtin">T</span><span class="token punctuation">]</span><span class="token punctuation">(</span>a <span class="token builtin">T</span><span class="token punctuation">,</span> b <span class="token builtin">T</span><span class="token punctuation">)</span> <span class="token builtin">bool</span></code></pre>
+
+
+</section>
+
+		<section id="display_file" class="doc-node">
+			<div class="title"><h2>fn display_file <a href="#display_file">#</a></h2></div>
+<pre class="signature">
+<code><span class="token keyword">fn</span> <span class="token function">display_file</span><span class="token punctuation">(</span>path <span class="token builtin">string</span><span class="token punctuation">,</span> in_opts Options<span class="token punctuation">,</span> disp DisplaySettings<span class="token punctuation">)</span></code></pre>
+<p>display_file displays on the console, a results file as produced by other hamnn functions.</p><pre><code class="language-sh">display_file('path_to_saved_results_file', expanded_flag: true) Output options: expanded_flag: display additional information on the console, including a confusion matrix for cross-validation or verification operations; graph_flag: generates plots for display in the default web browser.
 </code></pre>
 
 </section>
 
-		<section id="explore" class="doc-node">
-			<div class="title"><h2>fn explore <a href="#explore">#</a></h2></div>
+		<section id="combine_raw_and_inferred_types" class="doc-node">
+			<div class="title"><h2>fn combine_raw_and_inferred_types <a href="#combine_raw_and_inferred_types">#</a></h2></div>
 <pre class="signature">
-<code><span class="token keyword">fn</span> <span class="token function">explore</span><span class="token punctuation">(</span>ds Dataset<span class="token punctuation">,</span> opts Options<span class="token punctuation">,</span> disp DisplaySettings<span class="token punctuation">)</span> ExploreResult</code></pre>
-<p>explore runs a series of cross-validations or verifications, over a range of attributes and a range of binning values.</p><pre><code class="language-sh">Options (also see the Options struct): bins: range for binning or slicing of continuous attributes; uniform_bins: same number of bins for all continuous attributes; number_of_attributes: range for attributes to include; exclude_flag: excludes missing values when ranking attributes; weighting_flag: nearest neighbor counts are weighted by class prevalences; folds: number of folds n to use for n-fold cross-validation (default is leave-one-out cross-validation); repetitions: number of times to repeat n-fold cross-validations; random-pick: choose instances randomly for n-fold cross-validations. Output options: show_flag: display results on the console; expanded_flag: display additional information on the console, including a confusion matrix for each explore step; graph_flag: generate plots of Receiver Operating Characteristics (ROC) by attributes used; ROC by bins used, and accuracy by attributes used. outputfile_path: saves the result to a file.
-</code></pre>
+<code><span class="token keyword">fn</span> <span class="token function">combine_raw_and_inferred_types</span><span class="token punctuation">(</span>ds Dataset<span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span></code></pre>
 
-</section>
-
-		<section id="file_type" class="doc-node">
-			<div class="title"><h2>fn file_type <a href="#file_type">#</a></h2></div>
-<pre class="signature">
-<code><span class="token keyword">fn</span> <span class="token function">file_type</span><span class="token punctuation">(</span>path <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token builtin">string</span></code></pre>
-<p>file_type returns a string identifying how a dataset is structured or formatted, eg 'orange_newer', 'orange_older', 'arff', or 'csv'. On the assumption that an 'orange_older' file will always identify a class attribute by having 'c' or 'class' in the third header line, all other tab-delimited datafiles will be typed as 'orange_newer'.</p>
-
-<section class="doc-node examples"><h4>Example</h4>
-<pre>
-<code class="language-v"><span class="token keyword">assert</span> <span class="token function">file_type</span><span class="token punctuation">(</span><span class="token string">'datasets/iris.tab'</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">'orange_older'</span></code></pre>
-</section>
-</section>
-
-		<section id="get_useful_continuous_attributes" class="doc-node">
-			<div class="title"><h2>fn get_useful_continuous_attributes <a href="#get_useful_continuous_attributes">#</a></h2></div>
-<pre class="signature">
-<code><span class="token keyword">fn</span> <span class="token function">get_useful_continuous_attributes</span><span class="token punctuation">(</span>ds Dataset<span class="token punctuation">)</span> <span class="token builtin">map</span><span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">f32</span></code></pre>
-<p>get_useful_continuous_attributes</p>
-
-</section>
-
-		<section id="get_useful_discrete_attributes" class="doc-node">
-			<div class="title"><h2>fn get_useful_discrete_attributes <a href="#get_useful_discrete_attributes">#</a></h2></div>
-<pre class="signature">
-<code><span class="token keyword">fn</span> <span class="token function">get_useful_discrete_attributes</span><span class="token punctuation">(</span>ds Dataset<span class="token punctuation">)</span> <span class="token builtin">map</span><span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span></code></pre>
-<p>get_useful_discrete_attributes</p>
-
-</section>
-
-		<section id="is_nan" class="doc-node">
-			<div class="title"><h2>fn is_nan <a href="#is_nan">#</a></h2></div>
-<pre class="signature">
-<code><span class="token keyword">fn</span> is_nan<span class="token punctuation">[</span><span class="token builtin">T</span><span class="token punctuation">]</span><span class="token punctuation">(</span>f <span class="token builtin">T</span><span class="token punctuation">)</span> <span class="token builtin">bool</span></code></pre>
-
-
-</section>
-
-		<section id="load_classifier_file" class="doc-node">
-			<div class="title"><h2>fn load_classifier_file <a href="#load_classifier_file">#</a></h2></div>
-<pre class="signature">
-<code><span class="token keyword">fn</span> <span class="token function">load_classifier_file</span><span class="token punctuation">(</span>path <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token operator">!</span>Classifier</code></pre>
-<p>load_classifier_file loads a file generated by make_classifier(); returns a Classifier struct.</p>
-
-<section class="doc-node examples"><h4>Example</h4>
-<pre>
-<code class="language-v">cl <span class="token operator">:=</span> <span class="token function">load_classifier_file</span><span class="token punctuation">(</span><span class="token string">'tempfolder/saved_classifier.txt'</span><span class="token punctuation">)</span></code></pre>
-</section>
-</section>
-
-		<section id="load_file" class="doc-node">
-			<div class="title"><h2>fn load_file <a href="#load_file">#</a></h2></div>
-<pre class="signature">
-<code><span class="token keyword">fn</span> <span class="token function">load_file</span><span class="token punctuation">(</span>path <span class="token builtin">string</span><span class="token punctuation">,</span> opts LoadOptions<span class="token punctuation">)</span> Dataset</code></pre>
-<p>load_file returns a struct containing the datafile's contents, suitable for generating a classifier</p>
-
-<section class="doc-node examples"><h4>Example</h4>
-<pre>
-<code class="language-v">ds <span class="token operator">:=</span> <span class="token function">load_file</span><span class="token punctuation">(</span><span class="token string">'datasets/iris.tab'</span><span class="token punctuation">)</span></code></pre>
-</section>
-</section>
-
-		<section id="load_instances_file" class="doc-node">
-			<div class="title"><h2>fn load_instances_file <a href="#load_instances_file">#</a></h2></div>
-<pre class="signature">
-<code><span class="token keyword">fn</span> <span class="token function">load_instances_file</span><span class="token punctuation">(</span>path <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token operator">!</span>ValidateResult</code></pre>
-<p>load_instances_file loads a file generated by validate() or query(), and returns it as a struct, suitable for appending to a classifier.</p>
-
-<section class="doc-node examples"><h4>Example</h4>
-<pre>
-<code class="language-v">instances <span class="token operator">:=</span> <span class="token function">load_instances_file</span><span class="token punctuation">(</span><span class="token string">'tempfolder/saved_validate_result.txt'</span><span class="token punctuation">)</span></code></pre>
-</section>
-</section>
-
-		<section id="make_classifier" class="doc-node">
-			<div class="title"><h2>fn make_classifier <a href="#make_classifier">#</a></h2></div>
-<pre class="signature">
-<code><span class="token keyword">fn</span> <span class="token function">make_classifier</span><span class="token punctuation">(</span>dds Dataset<span class="token punctuation">,</span> opts Options<span class="token punctuation">,</span> disp DisplaySettings<span class="token punctuation">)</span> Classifier</code></pre>
-<p>make_classifier returns a Classifier struct, given a Dataset (as created by load_file).</p><pre><code class="language-sh">Options (also see the Options struct): bins: range for binning or slicing of continuous attributes; uniform_bins: same number of bins for continuous attributes; number_of_attributes: the number of highest-ranked attributes to include; exclude_flag: excludes missing values when ranking attributes; purge_flag: remove those instances which are duplicates, after binning and based on only the attributes to be used; outputfile_path: if specified, saves the classifier to this file.
-</code></pre>
 
 </section>
 
@@ -205,6 +131,26 @@ v .         # recompile
 <pre class="signature">
 <code><span class="token keyword">fn</span> nan<span class="token punctuation">[</span><span class="token builtin">T</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">T</span></code></pre>
 
+
+</section>
+
+		<section id="analyze_dataset" class="doc-node">
+			<div class="title"><h2>fn analyze_dataset <a href="#analyze_dataset">#</a></h2></div>
+<pre class="signature">
+<code><span class="token keyword">fn</span> <span class="token function">analyze_dataset</span><span class="token punctuation">(</span>ds Dataset<span class="token punctuation">,</span> opts Options<span class="token punctuation">,</span> disp DisplaySettings<span class="token punctuation">)</span> AnalyzeResult</code></pre>
+<p>analyze_dataset returns a struct with information about a datafile.</p><pre><code class="language-sh">Optional: if show_flag is true, displays on the console (using show_analyze): 1. a list of attributes, their types, the unique values, and a count of missing values; 2. a table with counts for each type of attribute; 3. a list of discrete attributes useful for training a classifier; 4. a list of continuous attributes useful for training a classifier; 5. a breakdown of the class attribute, showing counts for each class.
+
+outputfile_path: if specified, saves the analysis results.
+</code></pre>
+
+</section>
+
+		<section id="cross_validate" class="doc-node">
+			<div class="title"><h2>fn cross_validate <a href="#cross_validate">#</a></h2></div>
+<pre class="signature">
+<code><span class="token keyword">fn</span> <span class="token function">cross_validate</span><span class="token punctuation">(</span>ds Dataset<span class="token punctuation">,</span> opts Options<span class="token punctuation">,</span> disp DisplaySettings<span class="token punctuation">)</span> CrossVerifyResult</code></pre>
+<p>cross_validate performs n-fold cross-validation on a dataset: it partitions the instances in a dataset into a fold, trains a classifier on all the dataset instances not in the fold, and then uses this classifier to classify the fold cases. This process is repeated for each of n folds, and the classification results are summarized.</p><pre><code class="language-sh">Options (also see the Options struct): bins: range for binning or slicing of continuous attributes; number_of_attributes: the number of attributes to use, in descending order of rank value; exclude_flag: excludes missing values when ranking attributes; weighting_flag: nearest neighbor counts are weighted by class prevalences; folds: number of folds n to use for n-fold cross-validation (default is leave-one-out cross-validation); repetitions: number of times to repeat n-fold cross-validations; random-pick: choose instances randomly for n-fold cross-validations. Output options: show_flag: prints results to the console; expanded_flag: prints additional information to the console, including a confusion matrix. outputfile_path: saves the result as a json file.
+</code></pre>
 
 </section>
 
@@ -238,6 +184,38 @@ Sort the attributes by descending rank values.
 </code></pre><pre><code class="language-sh">Options: -b --bins: specifies the range for binning (slicing) continous attributes; -x --exclude:  to exclude missing values when calculating rank values; Output options: `show_flag` to print the ranked list to the console; `graph_flag` to generate plots of rank values for each attribute on the y axis, with number of bins on the x axis. `outputfile_path`, saves the result as json.
 </code></pre>
 
+</section>
+
+		<section id="explore" class="doc-node">
+			<div class="title"><h2>fn explore <a href="#explore">#</a></h2></div>
+<pre class="signature">
+<code><span class="token keyword">fn</span> <span class="token function">explore</span><span class="token punctuation">(</span>ds Dataset<span class="token punctuation">,</span> opts Options<span class="token punctuation">,</span> disp DisplaySettings<span class="token punctuation">)</span> ExploreResult</code></pre>
+<p>explore runs a series of cross-validations or verifications, over a range of attributes and a range of binning values.</p><pre><code class="language-sh">Options (also see the Options struct): bins: range for binning or slicing of continuous attributes; uniform_bins: same number of bins for all continuous attributes; number_of_attributes: range for attributes to include; exclude_flag: excludes missing values when ranking attributes; weighting_flag: nearest neighbor counts are weighted by class prevalences; folds: number of folds n to use for n-fold cross-validation (default is leave-one-out cross-validation); repetitions: number of times to repeat n-fold cross-validations; random-pick: choose instances randomly for n-fold cross-validations. Output options: show_flag: display results on the console; expanded_flag: display additional information on the console, including a confusion matrix for each explore step; graph_flag: generate plots of Receiver Operating Characteristics (ROC) by attributes used; ROC by bins used, and accuracy by attributes used. outputfile_path: saves the result to a file.
+</code></pre>
+
+</section>
+
+		<section id="cli" class="doc-node">
+			<div class="title"><h2>fn cli <a href="#cli">#</a></h2></div>
+<pre class="signature">
+<code><span class="token keyword">fn</span> <span class="token function">cli</span><span class="token punctuation">(</span>cli_options CliOptions<span class="token punctuation">)</span> <span class="token operator">!</span></code></pre>
+<p>the command line interface app for the holder66.vhamml ML library. In a terminal, type: <code>v run . --help</code></p><pre><code class="language-sh">Usage: v run . [command] [flags] &lt;path_to_datafile&gt; Datafiles should be either tab-delimited, or have extension .csv or .arff Commands: analyze | append | cross | display | examples | explore | make | orange | query | rank | validate | verify Flags and options: -a --attributes, can be one, two, or 3 integers; a single integer will be used by make_classifier to produce a classifier with that number of attributes. More than one integer will be used by explore to provide a range and an interval. -b --bins, can be one, two, or 3 integers; a single integer for one bin value to be used for all attributes; two integers for a range of bin values; a third integer specifies an interval for the range (note that the binning range is from the upper to the lower value);
+
+Note: when doing an explore, the first integer specifies the lower limit for the number of bins, and the second gives the upper value for the explore range. Example: explore -b 3,6 would first use 3 - 3, then 3 - 4, then 3 - 5, and finally 3 - 6 for the binning ranges. If the uniform flag is true, then a single integer specifies the number of bins for all continuous attributes; two integers for a range of uniform bin values for the explore command; a third integer for the interval to be used over the explore range; -bp, --balanced-prevalences, multiply the number of instances for classes with low prevalence, to more closely balance prevalences; -c --concurrent, permit parallel processing to use multiple cores; -e --expanded, expanded results on the console; -f --folds, default is leave-one-out; -g --graph, displays a plot; -h --help, -k --classifier, followed by the path to a file for a saved Classifier -ka --kaggle, followed by the path to a file. Used with the "validate" command, a csv file suitable for submission to a Kaggle competition is created; -m --multiple, classify using more than one trained classifier, followed by the path to a json file with parameters to generate each classifier; -ma when multiple classifiers are used, stop classifying when matches have been found for all classifiers; -mc when multiple classifiers are used, combine the possible hamming distances for each classifier into a single list; -mt when multiple classifiers are used, add the nearest neighbors from each classifier, weight by class prevalences, and then infer from the totals; -m# followed by a list of which classifiers to apply in a multiple classi- fication run (zero-indexed); also used to specify which classifiers to append to a settings file; -ms append the settings to a file (path follows flag) for use in multiple classification (with -m#). When used with 'explore', the settings for cases identified in the analytics are appended; -o --output, followed by the path to a file in which a classifier, a result, instances used for validation, or a query instance will be stored; -p --purge, removes instances which after binning are duplicates -pmc --purge-missing-classes, removes instances for which the class value is missing; -r --reps, number of repetitions; if &gt; 1, a random selection of instances to be included in each fold will be applied -s --show, output results to the console; -t --test, followed by the path to the datafile to be verified or validated; -u --uniform, specifies if uniform binning is to be used for the explore command (note: to obtain uniform binning with verify, validate, query, or or cross-validate, specify the same value for binning, eg -b 4,4) -v --verbose -w --weight, when classifying, weight the nearest neighbour counts by class prevalences; -wr when ranking attributes, weight contributions by class prevalences; -x --exclude, do not take into account missing values when ranking attributes;
+</code></pre>
+
+</section>
+
+		<section id="file_type" class="doc-node">
+			<div class="title"><h2>fn file_type <a href="#file_type">#</a></h2></div>
+<pre class="signature">
+<code><span class="token keyword">fn</span> <span class="token function">file_type</span><span class="token punctuation">(</span>path <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token builtin">string</span></code></pre>
+<p>file_type returns a string identifying how a dataset is structured or formatted, eg 'orange_newer', 'orange_older', 'arff', or 'csv'. On the assumption that an 'orange_older' file will always identify a class attribute by having 'c' or 'class' in the third header line, all other tab-delimited datafiles will be typed as 'orange_newer'.</p>
+
+<section class="doc-node examples"><h4>Example</h4>
+<pre>
+<code class="language-v"><span class="token keyword">assert</span> <span class="token function">file_type</span><span class="token punctuation">(</span><span class="token string">'datasets/iris.tab'</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">'orange_older'</span></code></pre>
+</section>
 </section>
 
 		<section id="save_json_file" class="doc-node">
@@ -304,6 +282,14 @@ Sort the attributes by descending rank values.
 
 </section>
 
+		<section id="get_useful_continuous_attributes" class="doc-node">
+			<div class="title"><h2>fn get_useful_continuous_attributes <a href="#get_useful_continuous_attributes">#</a></h2></div>
+<pre class="signature">
+<code><span class="token keyword">fn</span> <span class="token function">get_useful_continuous_attributes</span><span class="token punctuation">(</span>ds Dataset<span class="token punctuation">)</span> <span class="token builtin">map</span><span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">f32</span></code></pre>
+<p>get_useful_continuous_attributes</p>
+
+</section>
+
 		<section id="transpose" class="doc-node">
 			<div class="title"><h2>fn transpose <a href="#transpose">#</a></h2></div>
 <pre class="signature">
@@ -320,13 +306,19 @@ Sort the attributes by descending rank values.
 
 </section>
 
-		<section id="analyze_dataset" class="doc-node">
-			<div class="title"><h2>fn analyze_dataset <a href="#analyze_dataset">#</a></h2></div>
+		<section id="get_useful_discrete_attributes" class="doc-node">
+			<div class="title"><h2>fn get_useful_discrete_attributes <a href="#get_useful_discrete_attributes">#</a></h2></div>
 <pre class="signature">
-<code><span class="token keyword">fn</span> <span class="token function">analyze_dataset</span><span class="token punctuation">(</span>ds Dataset<span class="token punctuation">,</span> opts Options<span class="token punctuation">,</span> disp DisplaySettings<span class="token punctuation">)</span> AnalyzeResult</code></pre>
-<p>analyze_dataset returns a struct with information about a datafile.</p><pre><code class="language-sh">Optional: if show_flag is true, displays on the console (using show_analyze): 1. a list of attributes, their types, the unique values, and a count of missing values; 2. a table with counts for each type of attribute; 3. a list of discrete attributes useful for training a classifier; 4. a list of continuous attributes useful for training a classifier; 5. a breakdown of the class attribute, showing counts for each class.
+<code><span class="token keyword">fn</span> <span class="token function">get_useful_discrete_attributes</span><span class="token punctuation">(</span>ds Dataset<span class="token punctuation">)</span> <span class="token builtin">map</span><span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span></code></pre>
+<p>get_useful_discrete_attributes</p>
 
-outputfile_path: if specified, saves the analysis results.
+</section>
+
+		<section id="verify" class="doc-node">
+			<div class="title"><h2>fn verify <a href="#verify">#</a></h2></div>
+<pre class="signature">
+<code><span class="token keyword">fn</span> <span class="token function">verify</span><span class="token punctuation">(</span>opts Options<span class="token punctuation">,</span> disp DisplaySettings<span class="token punctuation">)</span> CrossVerifyResult</code></pre>
+<p>verify classifies all the instances in a verification datafile (specified by <code>opts.testfile_path</code>) using a trained Classifier; returns metrics comparing the inferred classes to the labeled (assigned) classes of the verification datafile.</p><pre><code class="language-sh">Optional (also see `make_classifier.v` for options in training a classifier) weighting_flag: nearest neighbor counts are weighted by class prevalences. Output options: show_flag: display results on the console; expanded_flag: display additional information on the console, including a confusion matrix. outputfile_path: saves the result as a json file
 </code></pre>
 
 </section>
@@ -340,76 +332,107 @@ outputfile_path: if specified, saves the analysis results.
 
 </section>
 
-		<section id="cli" class="doc-node">
-			<div class="title"><h2>fn cli <a href="#cli">#</a></h2></div>
+		<section id="is_nan" class="doc-node">
+			<div class="title"><h2>fn is_nan <a href="#is_nan">#</a></h2></div>
 <pre class="signature">
-<code><span class="token keyword">fn</span> <span class="token function">cli</span><span class="token punctuation">(</span>cli_options CliOptions<span class="token punctuation">)</span> <span class="token operator">!</span></code></pre>
-<p>the command line interface app for the holder66.vhamml ML library. In a terminal, type: <code>v run . --help</code></p><pre><code class="language-sh">Usage: v run . [command] [flags] &lt;path_to_datafile&gt; Datafiles should be either tab-delimited, or have extension .csv or .arff Commands: analyze | append | cross | display | examples | explore | make | orange | query | rank | validate | verify Flags and options: -a --attributes, can be one, two, or 3 integers; a single integer will be used by make_classifier to produce a classifier with that number of attributes. More than one integer will be used by explore to provide a range and an interval. -b --bins, can be one, two, or 3 integers; a single integer for one bin value to be used for all attributes; two integers for a range of bin values; a third integer specifies an interval for the range (note that the binning range is from the upper to the lower value);
+<code><span class="token keyword">fn</span> is_nan<span class="token punctuation">[</span><span class="token builtin">T</span><span class="token punctuation">]</span><span class="token punctuation">(</span>f <span class="token builtin">T</span><span class="token punctuation">)</span> <span class="token builtin">bool</span></code></pre>
 
-Note: when doing an explore, the first integer specifies the lower limit for the number of bins, and the second gives the upper value for the explore range. Example: explore -b 3,6 would first use 3 - 3, then 3 - 4, then 3 - 5, and finally 3 - 6 for the binning ranges. If the uniform flag is true, then a single integer specifies the number of bins for all continuous attributes; two integers for a range of uniform bin values for the explore command; a third integer for the interval to be used over the explore range; -bp, --balanced-prevalences, multiply the number of instances for classes with low prevalence, to more closely balance prevalences; -c --concurrent, permit parallel processing to use multiple cores; -e --expanded, expanded results on the console; -f --folds, default is leave-one-out; -g --graph, displays a plot; -h --help, -k --classifier, followed by the path to a file for a saved Classifier -ka --kaggle, followed by the path to a file. Used with the "validate" command, a csv file suitable for submission to a Kaggle competition is created; -m --multiple, classify using more than one trained classifier, followed by the path to a json file with parameters to generate each classifier; -ma when multiple classifiers are used, stop classifying when matches have been found for all classifiers; -mc when multiple classifiers are used, combine the possible hamming distances for each classifier into a single list; -mt when multiple classifiers are used, add the nearest neighbors from each classifier, weight by class prevalences, and then infer from the totals; -m# followed by a list of which classifiers to apply in a multiple classi- fication run (zero-indexed); also used to specify which classifiers to append to a settings file; -ms append the settings to a file (path follows flag) for use in multiple classification (with -m#). When used with 'explore', the settings for cases identified in the analytics are appended; -o --output, followed by the path to a file in which a classifier, a result, instances used for validation, or a query instance will be stored; -p --purge, removes instances which after binning are duplicates -pmc --purge-missing-classes, removes instances for which the class value is missing; -r --reps, number of repetitions; if &gt; 1, a random selection of instances to be included in each fold will be applied -s --show, output results to the console; -t --test, followed by the path to the datafile to be verified or validated; -u --uniform, specifies if uniform binning is to be used for the explore command (note: to obtain uniform binning with verify, validate, query, or or cross-validate, specify the same value for binning, eg -b 4,4) -v --verbose -w --weight, when classifying, weight the nearest neighbour counts by class prevalences; -wr when ranking attributes, weight contributions by class prevalences; -x --exclude, do not take into account missing values when ranking attributes;
+
+</section>
+
+		<section id="load_classifier_file" class="doc-node">
+			<div class="title"><h2>fn load_classifier_file <a href="#load_classifier_file">#</a></h2></div>
+<pre class="signature">
+<code><span class="token keyword">fn</span> <span class="token function">load_classifier_file</span><span class="token punctuation">(</span>path <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token operator">!</span>Classifier</code></pre>
+<p>load_classifier_file loads a file generated by make_classifier(); returns a Classifier struct.</p>
+
+<section class="doc-node examples"><h4>Example</h4>
+<pre>
+<code class="language-v">cl <span class="token operator">:=</span> <span class="token function">load_classifier_file</span><span class="token punctuation">(</span><span class="token string">'tempfolder/saved_classifier.txt'</span><span class="token punctuation">)</span></code></pre>
+</section>
+</section>
+
+		<section id="load_file" class="doc-node">
+			<div class="title"><h2>fn load_file <a href="#load_file">#</a></h2></div>
+<pre class="signature">
+<code><span class="token keyword">fn</span> <span class="token function">load_file</span><span class="token punctuation">(</span>path <span class="token builtin">string</span><span class="token punctuation">,</span> opts LoadOptions<span class="token punctuation">)</span> Dataset</code></pre>
+<p>load_file returns a struct containing the datafile's contents, suitable for generating a classifier</p>
+
+<section class="doc-node examples"><h4>Example</h4>
+<pre>
+<code class="language-v">ds <span class="token operator">:=</span> <span class="token function">load_file</span><span class="token punctuation">(</span><span class="token string">'datasets/iris.tab'</span><span class="token punctuation">)</span></code></pre>
+</section>
+</section>
+
+		<section id="load_instances_file" class="doc-node">
+			<div class="title"><h2>fn load_instances_file <a href="#load_instances_file">#</a></h2></div>
+<pre class="signature">
+<code><span class="token keyword">fn</span> <span class="token function">load_instances_file</span><span class="token punctuation">(</span>path <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token operator">!</span>ValidateResult</code></pre>
+<p>load_instances_file loads a file generated by validate() or query(), and returns it as a struct, suitable for appending to a classifier.</p>
+
+<section class="doc-node examples"><h4>Example</h4>
+<pre>
+<code class="language-v">instances <span class="token operator">:=</span> <span class="token function">load_instances_file</span><span class="token punctuation">(</span><span class="token string">'tempfolder/saved_validate_result.txt'</span><span class="token punctuation">)</span></code></pre>
+</section>
+</section>
+
+		<section id="make_classifier" class="doc-node">
+			<div class="title"><h2>fn make_classifier <a href="#make_classifier">#</a></h2></div>
+<pre class="signature">
+<code><span class="token keyword">fn</span> <span class="token function">make_classifier</span><span class="token punctuation">(</span>dds Dataset<span class="token punctuation">,</span> opts Options<span class="token punctuation">,</span> disp DisplaySettings<span class="token punctuation">)</span> Classifier</code></pre>
+<p>make_classifier returns a Classifier struct, given a Dataset (as created by load_file).</p><pre><code class="language-sh">Options (also see the Options struct): bins: range for binning or slicing of continuous attributes; uniform_bins: same number of bins for continuous attributes; number_of_attributes: the number of highest-ranked attributes to include; exclude_flag: excludes missing values when ranking attributes; purge_flag: remove those instances which are duplicates, after binning and based on only the attributes to be used; outputfile_path: if specified, saves the classifier to this file.
 </code></pre>
 
 </section>
 
-		<section id="close" class="doc-node">
-			<div class="title"><h2>fn close <a href="#close">#</a></h2></div>
+		<section id="Options" class="doc-node">
+			<div class="title"><h2>struct Options <a href="#Options">#</a></h2></div>
 <pre class="signature">
-<code><span class="token keyword">fn</span> close<span class="token punctuation">[</span><span class="token builtin">T</span><span class="token punctuation">]</span><span class="token punctuation">(</span>a <span class="token builtin">T</span><span class="token punctuation">,</span> b <span class="token builtin">T</span><span class="token punctuation">)</span> <span class="token builtin">bool</span></code></pre>
-
-
-</section>
-
-		<section id="combine_raw_and_inferred_types" class="doc-node">
-			<div class="title"><h2>fn combine_raw_and_inferred_types <a href="#combine_raw_and_inferred_types">#</a></h2></div>
-<pre class="signature">
-<code><span class="token keyword">fn</span> <span class="token function">combine_raw_and_inferred_types</span><span class="token punctuation">(</span>ds Dataset<span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span></code></pre>
-
-
-</section>
-
-		<section id="cross_validate" class="doc-node">
-			<div class="title"><h2>fn cross_validate <a href="#cross_validate">#</a></h2></div>
-<pre class="signature">
-<code><span class="token keyword">fn</span> <span class="token function">cross_validate</span><span class="token punctuation">(</span>ds Dataset<span class="token punctuation">,</span> opts Options<span class="token punctuation">,</span> disp DisplaySettings<span class="token punctuation">)</span> CrossVerifyResult</code></pre>
-<p>cross_validate performs n-fold cross-validation on a dataset: it partitions the instances in a dataset into a fold, trains a classifier on all the dataset instances not in the fold, and then uses this classifier to classify the fold cases. This process is repeated for each of n folds, and the classification results are summarized.</p><pre><code class="language-sh">Options (also see the Options struct): bins: range for binning or slicing of continuous attributes; number_of_attributes: the number of attributes to use, in descending order of rank value; exclude_flag: excludes missing values when ranking attributes; weighting_flag: nearest neighbor counts are weighted by class prevalences; folds: number of folds n to use for n-fold cross-validation (default is leave-one-out cross-validation); repetitions: number of times to repeat n-fold cross-validations; random-pick: choose instances randomly for n-fold cross-validations. Output options: show_flag: prints results to the console; expanded_flag: prints additional information to the console, including a confusion matrix. outputfile_path: saves the result as a json file.
-</code></pre>
-
-</section>
-
-		<section id="display_file" class="doc-node">
-			<div class="title"><h2>fn display_file <a href="#display_file">#</a></h2></div>
-<pre class="signature">
-<code><span class="token keyword">fn</span> <span class="token function">display_file</span><span class="token punctuation">(</span>path <span class="token builtin">string</span><span class="token punctuation">,</span> in_opts Options<span class="token punctuation">,</span> disp DisplaySettings<span class="token punctuation">)</span></code></pre>
-<p>display_file displays on the console, a results file as produced by other hamnn functions.</p><pre><code class="language-sh">display_file('path_to_saved_results_file', expanded_flag: true) Output options: expanded_flag: display additional information on the console, including a confusion matrix for cross-validation or verification operations; graph_flag: generates plots for display in the default web browser.
-</code></pre>
-
-</section>
-
-		<section id="HistoryEvent" class="doc-node">
-			<div class="title"><h2>struct HistoryEvent <a href="#HistoryEvent">#</a></h2></div>
-<pre class="signature">
-<code><span class="token keyword">struct</span> <span class="token symbol">HistoryEvent</span> <span class="token punctuation">{</span>
+<code><span class="token keyword">struct</span> <span class="token symbol">Options</span> <span class="token punctuation">{</span>
+	Parameters
+	LoadOptions <span class="token comment">// DisplaySettings</span>
+	MultipleOptions
+	MultipleClassifiersArray
 <span class="token keyword">pub</span> <span class="token keyword">mut</span><span class="token punctuation">:</span>
-	event_date               time<span class="token punctuation">.</span>Time
-	instances_count          <span class="token builtin">int</span>
-	prepurge_instances_count <span class="token builtin">int</span>
-	event_environment        Environment
-	event                    <span class="token builtin">string</span>
-	file_path                <span class="token builtin">string</span>
+	struct_type                         <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">'.Options'</span>
+	non_options                         <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span>
+	bins                                <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">]</span>
+	concurrency_flag                    <span class="token builtin">bool</span>
+	datafile_path                       <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">'datasets/developer.tab'</span>
+	testfile_path                       <span class="token builtin">string</span>
+	outputfile_path                     <span class="token builtin">string</span>
+	classifierfile_path                 <span class="token builtin">string</span>
+	instancesfile_path                  <span class="token builtin">string</span>
+	multiple_classify_options_file_path <span class="token builtin">string</span>
+	settingsfile_path                   <span class="token builtin">string</span>
+	help_flag                           <span class="token builtin">bool</span>
+	multiple_flag                       <span class="token builtin">bool</span>
+	append_settings_flag                <span class="token builtin">bool</span>
+	command                             <span class="token builtin">string</span>
+	args                                <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span>
+	kagglefile_path                     <span class="token builtin">string</span>
 <span class="token punctuation">}</span></code></pre>
-
+<p>Options struct: can be used as the last parameter in a function's parameter list, to enable default values to be passed to functions.</p>
 
 </section>
 
-		<section id="PlotResult" class="doc-node">
-			<div class="title"><h2>struct PlotResult <a href="#PlotResult">#</a></h2></div>
+		<section id="AnalyzeResult" class="doc-node">
+			<div class="title"><h2>struct AnalyzeResult <a href="#AnalyzeResult">#</a></h2></div>
 <pre class="signature">
-<code><span class="token keyword">struct</span> <span class="token symbol">PlotResult</span> <span class="token punctuation">{</span>
+<code><span class="token keyword">struct</span> <span class="token symbol">AnalyzeResult</span> <span class="token punctuation">{</span>
+	LoadOptions
 <span class="token keyword">pub</span> <span class="token keyword">mut</span><span class="token punctuation">:</span>
-	bin             <span class="token builtin">int</span>
-	attributes_used <span class="token builtin">int</span>
-	correct_count   <span class="token builtin">int</span>
-	total_count     <span class="token builtin">int</span>
+	struct_type             <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">'.AnalyzeResult'</span>
+	environment             Environment
+	datafile_path           <span class="token builtin">string</span>
+	datafile_type           <span class="token builtin">string</span>
+	class_name              <span class="token builtin">string</span>
+	class_index             <span class="token builtin">int</span>
+	class_counts            <span class="token builtin">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">int</span>
+	attributes              <span class="token punctuation">[</span><span class="token punctuation">]</span>Attribute
+	overall_min             <span class="token builtin">f32</span>
+	overall_max             <span class="token builtin">f32</span>
+	use_inferred_types_flag <span class="token builtin">bool</span>
 <span class="token punctuation">}</span></code></pre>
 
 
@@ -531,21 +554,6 @@ Note: when doing an explore, the first integer specifies the lower limit for the
 
 </section>
 
-		<section id="ResultForClass" class="doc-node">
-			<div class="title"><h2>struct ResultForClass <a href="#ResultForClass">#</a></h2></div>
-<pre class="signature">
-<code><span class="token keyword">struct</span> <span class="token symbol">ResultForClass</span> <span class="token punctuation">{</span>
-<span class="token keyword">pub</span> <span class="token keyword">mut</span><span class="token punctuation">:</span>
-	labeled_instances    <span class="token builtin">int</span>
-	correct_inferences   <span class="token builtin">int</span>
-	incorrect_inferences <span class="token builtin">int</span>
-	wrong_inferences     <span class="token builtin">int</span>
-	confusion_matrix_row <span class="token builtin">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">int</span>
-<span class="token punctuation">}</span></code></pre>
-
-
-</section>
-
 		<section id="CliOptions" class="doc-node">
 			<div class="title"><h2>struct CliOptions <a href="#CliOptions">#</a></h2></div>
 <pre class="signature">
@@ -553,58 +561,6 @@ Note: when doing an explore, the first integer specifies the lower limit for the
 	LoadOptions
 <span class="token keyword">pub</span> <span class="token keyword">mut</span><span class="token punctuation">:</span>
 	args <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span>
-<span class="token punctuation">}</span></code></pre>
-
-
-</section>
-
-		<section id="TrainedAttribute" class="doc-node">
-			<div class="title"><h2>struct TrainedAttribute <a href="#TrainedAttribute">#</a></h2></div>
-<pre class="signature">
-<code><span class="token keyword">struct</span> <span class="token symbol">TrainedAttribute</span> <span class="token punctuation">{</span>
-<span class="token keyword">pub</span> <span class="token keyword">mut</span><span class="token punctuation">:</span>
-	attribute_type    <span class="token builtin">string</span>
-	translation_table <span class="token builtin">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">int</span>
-	minimum           <span class="token builtin">f32</span>
-	maximum           <span class="token builtin">f32</span>
-	bins              <span class="token builtin">int</span>
-	rank_value        <span class="token builtin">f32</span>
-	index             <span class="token builtin">int</span>
-<span class="token punctuation">}</span></code></pre>
-
-
-</section>
-
-		<section id="ValidateResult" class="doc-node">
-			<div class="title"><h2>struct ValidateResult <a href="#ValidateResult">#</a></h2></div>
-<pre class="signature">
-<code><span class="token keyword">struct</span> <span class="token symbol">ValidateResult</span> <span class="token punctuation">{</span>
-	Class
-	Parameters
-	LoadOptions
-<span class="token keyword">pub</span> <span class="token keyword">mut</span><span class="token punctuation">:</span>
-	struct_type                     <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">'.ValidateResult'</span>
-	datafile_path                   <span class="token builtin">string</span>
-	validate_file_path              <span class="token builtin">string</span>
-	row_identifiers                 <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span>
-	inferred_classes                <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span>
-	counts                          <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span>
-	instances                       <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">u8</span>
-	attributes_used                 <span class="token builtin">int</span>
-	prepurge_instances_counts_array <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span>
-	classifier_instances_counts     <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span>
-<span class="token punctuation">}</span></code></pre>
-
-
-</section>
-
-		<section id="LoadOptions" class="doc-node">
-			<div class="title"><h2>struct LoadOptions <a href="#LoadOptions">#</a></h2></div>
-<pre class="signature">
-<code><span class="token keyword">struct</span> <span class="token symbol">LoadOptions</span> <span class="token punctuation">{</span>
-	DefaultVals
-<span class="token keyword">pub</span> <span class="token keyword">mut</span><span class="token punctuation">:</span>
-	class_missing_purge_flag <span class="token builtin">bool</span>
 <span class="token punctuation">}</span></code></pre>
 
 
@@ -703,17 +659,15 @@ Note: when doing an explore, the first integer specifies the lower limit for the
 
 </section>
 
-		<section id="RankedAttribute" class="doc-node">
-			<div class="title"><h2>struct RankedAttribute <a href="#RankedAttribute">#</a></h2></div>
+		<section id="DisplaySettings" class="doc-node">
+			<div class="title"><h2>struct DisplaySettings <a href="#DisplaySettings">#</a></h2></div>
 <pre class="signature">
-<code><span class="token keyword">struct</span> <span class="token symbol">RankedAttribute</span> <span class="token punctuation">{</span>
+<code><span class="token keyword">struct</span> <span class="token symbol">DisplaySettings</span> <span class="token punctuation">{</span>
 <span class="token keyword">pub</span> <span class="token keyword">mut</span><span class="token punctuation">:</span>
-	attribute_index  <span class="token builtin">int</span>
-	attribute_name   <span class="token builtin">string</span>
-	attribute_type   <span class="token builtin">string</span>
-	rank_value       <span class="token builtin">f32</span>
-	rank_value_array <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">f32</span>
-	bins             <span class="token builtin">int</span>
+	show_flag     <span class="token builtin">bool</span>
+	expanded_flag <span class="token builtin">bool</span>
+	graph_flag    <span class="token builtin">bool</span>
+	verbose_flag  <span class="token builtin">bool</span>
 <span class="token punctuation">}</span></code></pre>
 
 
@@ -732,17 +686,6 @@ Note: when doing an explore, the first integer specifies the lower limit for the
 	vexe_mtime     <span class="token builtin">string</span>
 	v_full_version <span class="token builtin">string</span>
 	vflags         <span class="token builtin">string</span>
-<span class="token punctuation">}</span></code></pre>
-
-
-</section>
-
-		<section id="MultipleClassifiersArray" class="doc-node">
-			<div class="title"><h2>struct MultipleClassifiersArray <a href="#MultipleClassifiersArray">#</a></h2></div>
-<pre class="signature">
-<code><span class="token keyword">struct</span> <span class="token symbol">MultipleClassifiersArray</span> <span class="token punctuation">{</span>
-<span class="token keyword">pub</span> <span class="token keyword">mut</span><span class="token punctuation">:</span>
-	multiple_classifiers <span class="token punctuation">[</span><span class="token punctuation">]</span>ClassifierSettings
 <span class="token punctuation">}</span></code></pre>
 
 
@@ -770,6 +713,45 @@ Note: when doing an explore, the first integer specifies the lower limit for the
 
 </section>
 
+		<section id="HistoryEvent" class="doc-node">
+			<div class="title"><h2>struct HistoryEvent <a href="#HistoryEvent">#</a></h2></div>
+<pre class="signature">
+<code><span class="token keyword">struct</span> <span class="token symbol">HistoryEvent</span> <span class="token punctuation">{</span>
+<span class="token keyword">pub</span> <span class="token keyword">mut</span><span class="token punctuation">:</span>
+	event_date               time<span class="token punctuation">.</span>Time
+	instances_count          <span class="token builtin">int</span>
+	prepurge_instances_count <span class="token builtin">int</span>
+	event_environment        Environment
+	event                    <span class="token builtin">string</span>
+	file_path                <span class="token builtin">string</span>
+<span class="token punctuation">}</span></code></pre>
+
+
+</section>
+
+		<section id="LoadOptions" class="doc-node">
+			<div class="title"><h2>struct LoadOptions <a href="#LoadOptions">#</a></h2></div>
+<pre class="signature">
+<code><span class="token keyword">struct</span> <span class="token symbol">LoadOptions</span> <span class="token punctuation">{</span>
+	DefaultVals
+<span class="token keyword">pub</span> <span class="token keyword">mut</span><span class="token punctuation">:</span>
+	class_missing_purge_flag <span class="token builtin">bool</span>
+<span class="token punctuation">}</span></code></pre>
+
+
+</section>
+
+		<section id="MultipleClassifiersArray" class="doc-node">
+			<div class="title"><h2>struct MultipleClassifiersArray <a href="#MultipleClassifiersArray">#</a></h2></div>
+<pre class="signature">
+<code><span class="token keyword">struct</span> <span class="token symbol">MultipleClassifiersArray</span> <span class="token punctuation">{</span>
+<span class="token keyword">pub</span> <span class="token keyword">mut</span><span class="token punctuation">:</span>
+	multiple_classifiers <span class="token punctuation">[</span><span class="token punctuation">]</span>ClassifierSettings
+<span class="token punctuation">}</span></code></pre>
+
+
+</section>
+
 		<section id="MultipleOptions" class="doc-node">
 			<div class="title"><h2>struct MultipleOptions <a href="#MultipleOptions">#</a></h2></div>
 <pre class="signature">
@@ -780,6 +762,36 @@ Note: when doing an explore, the first integer specifies the lower limit for the
 	combined_radii_flag  <span class="token builtin">bool</span>
 	total_nn_counts_flag <span class="token builtin">bool</span>
 	classifier_indices   <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span>
+<span class="token punctuation">}</span></code></pre>
+
+
+</section>
+
+		<section id="PlotResult" class="doc-node">
+			<div class="title"><h2>struct PlotResult <a href="#PlotResult">#</a></h2></div>
+<pre class="signature">
+<code><span class="token keyword">struct</span> <span class="token symbol">PlotResult</span> <span class="token punctuation">{</span>
+<span class="token keyword">pub</span> <span class="token keyword">mut</span><span class="token punctuation">:</span>
+	bin             <span class="token builtin">int</span>
+	attributes_used <span class="token builtin">int</span>
+	correct_count   <span class="token builtin">int</span>
+	total_count     <span class="token builtin">int</span>
+<span class="token punctuation">}</span></code></pre>
+
+
+</section>
+
+		<section id="RankedAttribute" class="doc-node">
+			<div class="title"><h2>struct RankedAttribute <a href="#RankedAttribute">#</a></h2></div>
+<pre class="signature">
+<code><span class="token keyword">struct</span> <span class="token symbol">RankedAttribute</span> <span class="token punctuation">{</span>
+<span class="token keyword">pub</span> <span class="token keyword">mut</span><span class="token punctuation">:</span>
+	attribute_index  <span class="token builtin">int</span>
+	attribute_name   <span class="token builtin">string</span>
+	attribute_type   <span class="token builtin">string</span>
+	rank_value       <span class="token builtin">f32</span>
+	rank_value_array <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">f32</span>
+	bins             <span class="token builtin">int</span>
 <span class="token punctuation">}</span></code></pre>
 
 
@@ -802,94 +814,81 @@ Note: when doing an explore, the first integer specifies the lower limit for the
 
 </section>
 
-		<section id="Options" class="doc-node">
-			<div class="title"><h2>struct Options <a href="#Options">#</a></h2></div>
+		<section id="ResultForClass" class="doc-node">
+			<div class="title"><h2>struct ResultForClass <a href="#ResultForClass">#</a></h2></div>
 <pre class="signature">
-<code><span class="token keyword">struct</span> <span class="token symbol">Options</span> <span class="token punctuation">{</span>
-	Parameters
-	LoadOptions <span class="token comment">// DisplaySettings</span>
-	MultipleOptions
-	MultipleClassifiersArray
+<code><span class="token keyword">struct</span> <span class="token symbol">ResultForClass</span> <span class="token punctuation">{</span>
 <span class="token keyword">pub</span> <span class="token keyword">mut</span><span class="token punctuation">:</span>
-	struct_type                         <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">'.Options'</span>
-	non_options                         <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span>
-	bins                                <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">]</span>
-	concurrency_flag                    <span class="token builtin">bool</span>
-	datafile_path                       <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">'datasets/developer.tab'</span>
-	testfile_path                       <span class="token builtin">string</span>
-	outputfile_path                     <span class="token builtin">string</span>
-	classifierfile_path                 <span class="token builtin">string</span>
-	instancesfile_path                  <span class="token builtin">string</span>
-	multiple_classify_options_file_path <span class="token builtin">string</span>
-	settingsfile_path                   <span class="token builtin">string</span>
-	help_flag                           <span class="token builtin">bool</span>
-	multiple_flag                       <span class="token builtin">bool</span>
-	append_settings_flag                <span class="token builtin">bool</span>
-	command                             <span class="token builtin">string</span>
-	args                                <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span>
-	kagglefile_path                     <span class="token builtin">string</span>
+	labeled_instances    <span class="token builtin">int</span>
+	correct_inferences   <span class="token builtin">int</span>
+	incorrect_inferences <span class="token builtin">int</span>
+	wrong_inferences     <span class="token builtin">int</span>
+	confusion_matrix_row <span class="token builtin">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">int</span>
 <span class="token punctuation">}</span></code></pre>
-<p>Options struct: can be used as the last parameter in a function's parameter list, to enable default values to be passed to functions.</p>
+
 
 </section>
 
-		<section id="AnalyzeResult" class="doc-node">
-			<div class="title"><h2>struct AnalyzeResult <a href="#AnalyzeResult">#</a></h2></div>
+		<section id="TrainedAttribute" class="doc-node">
+			<div class="title"><h2>struct TrainedAttribute <a href="#TrainedAttribute">#</a></h2></div>
 <pre class="signature">
-<code><span class="token keyword">struct</span> <span class="token symbol">AnalyzeResult</span> <span class="token punctuation">{</span>
+<code><span class="token keyword">struct</span> <span class="token symbol">TrainedAttribute</span> <span class="token punctuation">{</span>
+<span class="token keyword">pub</span> <span class="token keyword">mut</span><span class="token punctuation">:</span>
+	attribute_type    <span class="token builtin">string</span>
+	translation_table <span class="token builtin">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">int</span>
+	minimum           <span class="token builtin">f32</span>
+	maximum           <span class="token builtin">f32</span>
+	bins              <span class="token builtin">int</span>
+	rank_value        <span class="token builtin">f32</span>
+	index             <span class="token builtin">int</span>
+<span class="token punctuation">}</span></code></pre>
+
+
+</section>
+
+		<section id="ValidateResult" class="doc-node">
+			<div class="title"><h2>struct ValidateResult <a href="#ValidateResult">#</a></h2></div>
+<pre class="signature">
+<code><span class="token keyword">struct</span> <span class="token symbol">ValidateResult</span> <span class="token punctuation">{</span>
+	Class
+	Parameters
 	LoadOptions
 <span class="token keyword">pub</span> <span class="token keyword">mut</span><span class="token punctuation">:</span>
-	struct_type             <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">'.AnalyzeResult'</span>
-	environment             Environment
-	datafile_path           <span class="token builtin">string</span>
-	datafile_type           <span class="token builtin">string</span>
-	class_name              <span class="token builtin">string</span>
-	class_index             <span class="token builtin">int</span>
-	class_counts            <span class="token builtin">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">int</span>
-	attributes              <span class="token punctuation">[</span><span class="token punctuation">]</span>Attribute
-	overall_min             <span class="token builtin">f32</span>
-	overall_max             <span class="token builtin">f32</span>
-	use_inferred_types_flag <span class="token builtin">bool</span>
+	struct_type                     <span class="token builtin">string</span> <span class="token operator">=</span> <span class="token string">'.ValidateResult'</span>
+	datafile_path                   <span class="token builtin">string</span>
+	validate_file_path              <span class="token builtin">string</span>
+	row_identifiers                 <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span>
+	inferred_classes                <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span>
+	counts                          <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span>
+	instances                       <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">u8</span>
+	attributes_used                 <span class="token builtin">int</span>
+	prepurge_instances_counts_array <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span>
+	classifier_instances_counts     <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">int</span>
 <span class="token punctuation">}</span></code></pre>
 
 
 </section>
 
 
-						<div class="footer">Powered by vdoc. Generated on: 29 Jan 2024 12:14:22</div>
+						<div class="footer">Powered by vdoc. Generated on: 29 Jan 2024 20:47:49</div>
 					</div>
 					<div class="doc-toc"><ul><li class="open"><a href="#readme_vhammll">README</a></li>
-<li class="open"><a href="#verify">fn verify</a>        <ul>
+<li class="open"><a href="#close">fn close</a>        <ul>
 </ul>
 </li>
-<li class="open"><a href="#explore">fn explore</a>        <ul>
+<li class="open"><a href="#display_file">fn display_file</a>        <ul>
 </ul>
 </li>
-<li class="open"><a href="#file_type">fn file_type</a>        <ul>
-</ul>
-</li>
-<li class="open"><a href="#get_useful_continuous_attributes">fn get_useful_continuous_attributes</a>        <ul>
-</ul>
-</li>
-<li class="open"><a href="#get_useful_discrete_attributes">fn get_useful_discrete_attributes</a>        <ul>
-</ul>
-</li>
-<li class="open"><a href="#is_nan">fn is_nan</a>        <ul>
-</ul>
-</li>
-<li class="open"><a href="#load_classifier_file">fn load_classifier_file</a>        <ul>
-</ul>
-</li>
-<li class="open"><a href="#load_file">fn load_file</a>        <ul>
-</ul>
-</li>
-<li class="open"><a href="#load_instances_file">fn load_instances_file</a>        <ul>
-</ul>
-</li>
-<li class="open"><a href="#make_classifier">fn make_classifier</a>        <ul>
+<li class="open"><a href="#combine_raw_and_inferred_types">fn combine_raw_and_inferred_types</a>        <ul>
 </ul>
 </li>
 <li class="open"><a href="#nan">fn nan</a>        <ul>
+</ul>
+</li>
+<li class="open"><a href="#analyze_dataset">fn analyze_dataset</a>        <ul>
+</ul>
+</li>
+<li class="open"><a href="#cross_validate">fn cross_validate</a>        <ul>
 </ul>
 </li>
 <li class="open"><a href="#purge_instances_for_missing_class_values_not_inline">fn purge_instances_for_missing_class_values_not_inline</a>        <ul>
@@ -899,6 +898,15 @@ Note: when doing an explore, the first integer specifies the lower limit for the
 </ul>
 </li>
 <li class="open"><a href="#rank_attributes">fn rank_attributes</a>        <ul>
+</ul>
+</li>
+<li class="open"><a href="#explore">fn explore</a>        <ul>
+</ul>
+</li>
+<li class="open"><a href="#cli">fn cli</a>        <ul>
+</ul>
+</li>
+<li class="open"><a href="#file_type">fn file_type</a>        <ul>
 </ul>
 </li>
 <li class="open"><a href="#save_json_file">fn save_json_file</a>        <ul>
@@ -925,37 +933,43 @@ Note: when doing an explore, the first integer specifies the lower limit for the
 <li class="open"><a href="#show_verify">fn show_verify</a>        <ul>
 </ul>
 </li>
+<li class="open"><a href="#get_useful_continuous_attributes">fn get_useful_continuous_attributes</a>        <ul>
+</ul>
+</li>
 <li class="open"><a href="#transpose">fn transpose</a>        <ul>
 </ul>
 </li>
 <li class="open"><a href="#validate">fn validate</a>        <ul>
 </ul>
 </li>
-<li class="open"><a href="#analyze_dataset">fn analyze_dataset</a>        <ul>
+<li class="open"><a href="#get_useful_discrete_attributes">fn get_useful_discrete_attributes</a>        <ul>
+</ul>
+</li>
+<li class="open"><a href="#verify">fn verify</a>        <ul>
 </ul>
 </li>
 <li class="open"><a href="#append_instances">fn append_instances</a>        <ul>
 </ul>
 </li>
-<li class="open"><a href="#cli">fn cli</a>        <ul>
+<li class="open"><a href="#is_nan">fn is_nan</a>        <ul>
 </ul>
 </li>
-<li class="open"><a href="#close">fn close</a>        <ul>
+<li class="open"><a href="#load_classifier_file">fn load_classifier_file</a>        <ul>
 </ul>
 </li>
-<li class="open"><a href="#combine_raw_and_inferred_types">fn combine_raw_and_inferred_types</a>        <ul>
+<li class="open"><a href="#load_file">fn load_file</a>        <ul>
 </ul>
 </li>
-<li class="open"><a href="#cross_validate">fn cross_validate</a>        <ul>
+<li class="open"><a href="#load_instances_file">fn load_instances_file</a>        <ul>
 </ul>
 </li>
-<li class="open"><a href="#display_file">fn display_file</a>        <ul>
+<li class="open"><a href="#make_classifier">fn make_classifier</a>        <ul>
 </ul>
 </li>
-<li class="open"><a href="#HistoryEvent">struct HistoryEvent</a>        <ul>
+<li class="open"><a href="#Options">struct Options</a>        <ul>
 </ul>
 </li>
-<li class="open"><a href="#PlotResult">struct PlotResult</a>        <ul>
+<li class="open"><a href="#AnalyzeResult">struct AnalyzeResult</a>        <ul>
 </ul>
 </li>
 <li class="open"><a href="#Attribute">struct Attribute</a>        <ul>
@@ -976,19 +990,7 @@ Note: when doing an explore, the first integer specifies the lower limit for the
 <li class="open"><a href="#ClassifyResult">struct ClassifyResult</a>        <ul>
 </ul>
 </li>
-<li class="open"><a href="#ResultForClass">struct ResultForClass</a>        <ul>
-</ul>
-</li>
 <li class="open"><a href="#CliOptions">struct CliOptions</a>        <ul>
-</ul>
-</li>
-<li class="open"><a href="#TrainedAttribute">struct TrainedAttribute</a>        <ul>
-</ul>
-</li>
-<li class="open"><a href="#ValidateResult">struct ValidateResult</a>        <ul>
-</ul>
-</li>
-<li class="open"><a href="#LoadOptions">struct LoadOptions</a>        <ul>
 </ul>
 </li>
 <li class="open"><a href="#CrossVerifyResult">struct CrossVerifyResult</a>        <ul>
@@ -1001,28 +1003,43 @@ Note: when doing an explore, the first integer specifies the lower limit for the
 <li class="open"><a href="#DefaultVals">struct DefaultVals</a>        <ul>
 </ul>
 </li>
-<li class="open"><a href="#RankedAttribute">struct RankedAttribute</a>        <ul>
+<li class="open"><a href="#DisplaySettings">struct DisplaySettings</a>        <ul>
 </ul>
 </li>
 <li class="open"><a href="#Environment">struct Environment</a>        <ul>
 </ul>
 </li>
-<li class="open"><a href="#MultipleClassifiersArray">struct MultipleClassifiersArray</a>        <ul>
+<li class="open"><a href="#ExploreResult">struct ExploreResult</a>        <ul>
 </ul>
 </li>
-<li class="open"><a href="#ExploreResult">struct ExploreResult</a>        <ul>
+<li class="open"><a href="#HistoryEvent">struct HistoryEvent</a>        <ul>
+</ul>
+</li>
+<li class="open"><a href="#LoadOptions">struct LoadOptions</a>        <ul>
+</ul>
+</li>
+<li class="open"><a href="#MultipleClassifiersArray">struct MultipleClassifiersArray</a>        <ul>
 </ul>
 </li>
 <li class="open"><a href="#MultipleOptions">struct MultipleOptions</a>        <ul>
 </ul>
 </li>
+<li class="open"><a href="#PlotResult">struct PlotResult</a>        <ul>
+</ul>
+</li>
+<li class="open"><a href="#RankedAttribute">struct RankedAttribute</a>        <ul>
+</ul>
+</li>
 <li class="open"><a href="#RankingResult">struct RankingResult</a>        <ul>
 </ul>
 </li>
-<li class="open"><a href="#Options">struct Options</a>        <ul>
+<li class="open"><a href="#ResultForClass">struct ResultForClass</a>        <ul>
 </ul>
 </li>
-<li class="open"><a href="#AnalyzeResult">struct AnalyzeResult</a>        <ul>
+<li class="open"><a href="#TrainedAttribute">struct TrainedAttribute</a>        <ul>
+</ul>
+</li>
+<li class="open"><a href="#ValidateResult">struct ValidateResult</a>        <ul>
 </ul>
 </li>
 </ul></div>
